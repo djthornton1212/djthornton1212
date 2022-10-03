@@ -1,0 +1,143 @@
+######################### My common commands ##########################
+# List comments
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/issues/<#>/comments
+
+# List Pull Request
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/pulls/<PR#>
+
+# List events
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/events
+
+# List an environment
+curl -X PUT \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/environments/<env>
+
+# List an environments public key
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/environments/<ENV_NAME>/secrets/public-key
+
+# List a repository
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>
+
+# List org's issues
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/orgs/<ORG>/issues
+
+# List repo's issues
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/issues
+
+# Get Action permissions for organization
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/orgs/<ORG>/actions/permissions
+
+# Set Action permissions for organization
+curl -X PUT \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+-d '{"enabled": true, "allowed_actions":"all"}' \
+https://api.github.com/orgs/<ORG>/actions/permissions
+
+# List repos w/ GitHub Actions enabled in org - Only works for selected mode
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H "Accept: application/vnd.github+json" \
+https://api.github.com/orgs/<ORG>/actions/permissions/repositories
+
+# Get Actions perms for a repo
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H "Accept: application/vnd.github+json" \
+https://api.github.com/repos/<ORG>/<REPO>/actions/permissions
+
+# Set Action permissions for a repository
+curl -X PUT \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+-d '{"enabled": true, "allowed_actions":"all"}' \
+https://api.github.com/repos/<ORG>/<REPO>/actions/permissions
+
+# Check RAW
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://raw.githubusercontent.com/<ORG>/<REPO>/repo/
+
+######################### Checks ##########################
+
+# Checks
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/check-runs/<CHECK_RUN_ID>
+
+# Suites
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/commits/<REF>/check-suites
+
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/check-suites/<CHECK_SUITE_ID>
+
+######################### CODE SCANNING #########################
+# Get sarif upload information
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/sarifs/<SARIF_ID>
+
+# Get sarif details
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/analyses?sarif_id=<SARIF_ID>
+
+# Get sarif analysis
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/analyses/37948866
+
+# Get all code scanning alert
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/alerts?ref=<REF>&tool_name=<TOOL>&state=<STATE>
+
+# Get specific code scanning alert
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/alerts/<ALERT_NUMBER>
+
+# Delete sarif analysis
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+-X DELETE \
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/analyses/<SARIF_ID>

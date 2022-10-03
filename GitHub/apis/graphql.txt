@@ -1,0 +1,16 @@
+------------------
+GraphQL
+
+# List all members of <ORG> teams with keyword `admins`
+curl -X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-d '{"query":"{organization(login: \"<ORG>\"){teams(first: 100, query:\"admins\"){nodes{parentTeam{name}name members{nodes{email login}}}}}}"}' \
+'https://api.github.com/graphql'
+
+# List all members of <ORG> teams with keyword `members`
+curl --request POST \
+  --url https://api.github.com/graphql \
+  --header "Authorization: Bearer $GITHUB_TOKEN" \
+  --header 'Content-Type: application/json' \
+  --data '{"query":"{organization(login: \"<ORG>\"){teams(first: 100, query: \"members\"){pageInfo{startCursor hasNextPage endCursor} nodes{parentTeam{name}name members{nodes{email login}}}}}}"}'
