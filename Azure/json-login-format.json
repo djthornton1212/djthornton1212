@@ -1,0 +1,7 @@
+{
+  "clientId": "<GUID>",
+  "clientSecret": "<STRING>",
+  "subscriptionId": "<GUID>",
+  "tenantId": "<GUID>",
+  "resourceManagerEndpointUrl": "<URL>"
+}
