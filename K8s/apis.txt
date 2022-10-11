@@ -1,0 +1,7 @@
+# Get secrets
+
+## All secrets in ENV:
+  kubectl get secrets -n <name_space>
+
+## Specific secrets
+  kubectl get secret -n <name_space> name-of-secret -o go-template='{{range $k,$v := .data}}{{printf "%s: " $k}}{{if not $v}}{{$v}}{{else}}{{$v | base64decode}}{{end}}{{"\n"}}{{end}}'
