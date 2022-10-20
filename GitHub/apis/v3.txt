@@ -1,4 +1,10 @@
 ######################### My common commands ##########################
+# List jobs
+curl \
+-H "Authorization: Bearer $GITHUB_TOKEN" \
+-H 'Accept: application/vnd.github.v3+json' \
+https://api.github.com/repos/<ORG>/<REPO>/actions/runs/<RUN_ID>/jobs
+
 # List comments
 curl \
 -H "Authorization: Bearer $GITHUB_TOKEN" \
@@ -146,4 +152,4 @@ curl \
 -H "Authorization: Bearer $GITHUB_TOKEN" \
 -H 'Accept: application/vnd.github.v3+json' \
 -X DELETE \
-https://api.github.com/repos/<ORG>/<REPO>/code-scanning/analyses/<SARIF_ID>
+https://api.github.com/repos/<ORG>/<REPO>/code-scanning/analyses/<ANALYSES_ID>
