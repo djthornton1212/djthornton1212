@@ -10,4 +10,4 @@ while IFS='|' read -r key value; do
     --vault-name "$VAULT_NAME" \
     --value "$value" \
     --encoding utf-8
-done < "$SCRIPT_DIR/akv-secrets-list.txt"
+done < "$SCRIPT_DIR/add-akv-secrets-list.txt"
