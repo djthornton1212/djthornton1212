@@ -1,0 +1,56 @@
+# validate-actor
+---
+name: Validate Actor
+
+on:
+  push:
+
+env:
+  BASH_DEBUG: |
+    PS4='$LINENO:'
+    set -x
+  DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Actor has push
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
+        id: push
+        run: |
+
+          [[ "$DEBUG" == true ]] && eval "$BASH_DEBUG"
+
+          ACTOR="${{ github.triggering_actor || github.actor }}"
+          echo "Identified actor as $ACTOR"
+
+          # TESTING
+            echo "GH API:"
+            gh api repos/$OWNER/$REPO/collaborators | jq '.'
+
+            echo "Curl API:"
+            curl -H "Authorization: Bearer $GITHUB_TOKEN" -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/$OWNER/$REPO/collaborators
+          # TESTING
+
+          COLLABORATOR_HAS_PERMS="$(gh api repos/$OWNER/$REPO/collaborators \
+            --paginate \
+            --jq ".[] |
+            select(.permissions.push==true) |
+            select(.login==\"$ACTOR\")")"
+
+          [[ "$DEBUG" == true ]] && \
+            echo "Collaborator gh api response:"
+            jq '.' <<< "$COLLABORATOR_HAS_PERMS"
+
+          if [ -n "$COLLABORATOR_HAS_PERMS" ]; then
+            echo "Actor $ACTOR has push permission."
+            echo "ACTOR_VALIDATED=true" >> "$GITHUB_OUTPUT"
+          else
+            MSG="Actor $ACTOR doesn't has push permission."
+            echo "::warning::$MSG"
+            echo "ACTOR_VALIDATED=false" >> "$GITHUB_OUTPUT"
+          fi
