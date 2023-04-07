@@ -1,4 +1,4 @@
-#! /usr/local/Cellar/bash/5.1.16/bin/bash
+#! /usr/local/Cellar/bash/*/bin/bash
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 VAULT_NAME='YOUR-VAULT-NAME'
