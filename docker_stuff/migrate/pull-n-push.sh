@@ -1,4 +1,4 @@
-#! /usr/local/Cellar/bash/5.1.16/bin/bash
+#! /usr/local/Cellar/bash/*/bin/bash
 
 # Common
 ACR="YOUR_ACR_NAME"
