@@ -18,6 +18,12 @@ Soure: [Do More with Workflow Commands for GitHub Actions](https://pakstech.com/
 
 ### Environment Variables
 
+Print secrets for recovery purposes:
+
+```bash
+echo "$OUTPUT" | sed 's/./& /g'
+```
+
 #### Python
 
 You cannot set environment variables directly. Instead, you need to write your environment variables into a file, whose name you can get via $GITHUB_ENV.
