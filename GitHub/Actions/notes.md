@@ -28,12 +28,14 @@ echo "$OUTPUT" | sed 's/./& /g'
 
 You cannot set environment variables directly. Instead, you need to write your environment variables into a file, whose name you can get via $GITHUB_ENV.
 
-In a simple workflow step, you can append it to the file like so (from the docs):
+In a bash/sh workflow step, you can append it to the file like so (from the docs):
 
 ```shell
 echo "{name}={value}" >> $GITHUB_ENV
-In python, you can do it like so:
+
 ```
+
+In python, you can do it like so:
 
 ```python
 import os
@@ -66,3 +68,23 @@ with open(env_file, "a") as myfile:
 ```
 
 Source: [How to set environment variables in GitHub actions using python](https://stackoverflow.com/questions/70123328/how-to-set-environment-variables-in-github-actions-using-python) Georg Bauer
+
+To write multiline variables/outputs:
+
+```python
+import uuid
+
+def set_output(name, value):
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+        print(f'{name}={value}', file=fh)
+
+
+def set_multiline_output(name, value):
+    with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+        delimiter = uuid.uuid1()
+        print(f'{name}<<{delimiter}', file=fh)
+        print(value, file=fh)
+        print(delimiter, file=fh)
+```
+
+Source: [How to set-output from a python script in Github workflow step](https://github.com/orgs/community/discussions/28146)
