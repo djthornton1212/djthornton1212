@@ -1,4 +1,6 @@
-#!/bin/bash
+#! /usr/local/Cellar/bash/*/bin/bash
+# shellcheck source=/Users/dthornton/.zshrc
+
 # This script requires Azure CLI version 2.25.0 or later. Check version with `az --version`.
 
 # Modify for your environment.

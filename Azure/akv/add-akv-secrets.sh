@@ -1,4 +1,5 @@
 #! /usr/local/Cellar/bash/*/bin/bash
+# shellcheck source=/Users/dthornton/.zshrc
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 VAULT_NAME='YOUR-VAULT-NAME'
