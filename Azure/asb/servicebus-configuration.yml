@@ -1,0 +1,35 @@
+---
+filterSchema: [
+  .azSubscription // null,
+  .azResourceGroup // null,
+  .namespace // null,
+  .location // "eastus2",
+  .sku // "Standard",
+  .topic // null,
+  .sharedAccessPolicy.name // null,
+  .sharedAccessPolicy.rights // "Manage Send Listen",
+  .topicSubscription // null
+]
+# Yaml input file for add-topic-subscription.sh
+# Format:
+# servicebus:
+#   - namespace: <namespace> # string
+#     az_resource_group: <resource_group> # string
+#     az_subscription: <subscription> # string
+#     topic: <topic> # string
+#     sharedAccessPolicy:
+#       name: <policy_name> # string
+#       rights: Manage Send Listen # string
+#     topic_subscription: <topic_subscription> # string
+servicebus:
+  - azSubscription:
+    azResourceGroup:
+    namespace:
+    location:
+    sku:
+    topic:
+    sharedAccessPolicy:
+      name:
+      rights:
+    topicSubscription:
+
