@@ -28,6 +28,7 @@ function AZ_KEYVAULT_QUERY_KEY {
   --output tsv
 }
 
+x=1
 while IFS='|' read -r SOURCE_KEY DEST_KEY; do
   if [ -z "$SOURCE_KEY" ] || [ -z "$DEST_KEY" ]; then
     echo "Skipping for empty 'source' or 'destination'."
@@ -35,10 +36,13 @@ while IFS='|' read -r SOURCE_KEY DEST_KEY; do
   elif [ "$SOURCE_KEY" == 'source' ] || [ "$DEST_KEY" == 'destination' ]; then
     echo "Skipping header row."
     continue
+  elif [ "$SOURCE_KEY" == 'leaveOnLastLine' ]; then
+    continue
   fi
 
   # Gather source secret
-  echo $'\n'"----------------------------------------"
+  echo $'\n'"Processing entry: $x"
+  echo "----------------------------------------"
   echo "Gathering value for source: $SOURCE_KEY"
   SOURCE_SECRET=$(AZ_KEYVAULT_QUERY_KEY "$SOURCE_KEY" "$VAULT_NAME")
   if [ -z "$SOURCE_SECRET" ]; then
@@ -54,5 +58,5 @@ while IFS='|' read -r SOURCE_KEY DEST_KEY; do
   echo "  Key: $(jq --raw-output '.name' <<< "$DEST_VALUES")"
   DEST_SECRET=$(jq --raw-output '.value' <<< "$DEST_VALUES")
   echo "  Value: ${DEST_SECRET:0:5}********"
-
+  ((x++))
 done < "$COPY_LIST"
