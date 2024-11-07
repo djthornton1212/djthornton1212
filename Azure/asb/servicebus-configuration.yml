@@ -3,24 +3,34 @@ filterSchema: [
   .azSubscription // null,
   .azResourceGroup // null,
   .namespace // null,
-  .location // "eastus2",
+  .location // "null",
   .sku // "Standard",
   .topic // null,
-  .sharedAccessPolicy.name // null,
-  .sharedAccessPolicy.rights // "Manage Send Listen",
-  .topicSubscription // null
+  .topicSharedAccessPolicy.name // null,
+  .topicSharedAccessPolicy.rights // "Listen",
+  .topicSubscription // null,
+  .queue // null,
+  .queueSharedAccessPolicy.name // null,
+  .queueSharedAccessPolicy.rights // "Listen",
 ]
 # Yaml input file for add-topic-subscription.sh
 # Format:
-# servicebus:
-#   - namespace: <namespace> # string
-#     az_resource_group: <resource_group> # string
-#     az_subscription: <subscription> # string
-#     topic: <topic> # string
-#     sharedAccessPolicy:
-#       name: <policy_name> # string
-#       rights: Manage Send Listen # string
-#     topic_subscription: <topic_subscription> # string
+# servicebus: [
+#     az_resource_group: <resource_group> # {string} | required, az resource group name
+#     az_subscription: <subscription> # {string} | required, az subscription ID
+#     namespace: <namespace> # {string} | required namespace name
+#     location: <location> # {string} | required if creation, az location
+#     sku: <sku> # {string} | required if creating, tier of the namespace
+#     topic: <topic> # {string} | optional
+#     topicSharedAccessPolicy:
+#       name: <policy_name> # {string} | optional
+#       rights: <policy_rights> # comma separated {string} | optional, default to Listen
+#     topic_subscription: <topic_subscription> # {string} | optional
+#     queue: <queue> # {string} | optional
+#     queueSharedAccessPolicy:
+#       name: <policy_name> # {string} | optional
+#       rights: <policy_rights> # comma separated {string} | optional, default to Listen
+# ]
 servicebus:
   - azSubscription:
     azResourceGroup:
@@ -28,8 +38,11 @@ servicebus:
     location:
     sku:
     topic:
-    sharedAccessPolicy:
+    topicSharedAccessPolicy:
       name:
       rights:
     topicSubscription:
-
+    queue:
+    queueSharedAccessPolicy:
+      name:
+      rights:
