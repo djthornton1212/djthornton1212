@@ -1,12 +1,31 @@
 #! /usr/local/Cellar/bash/*/bin/bash
 # shellcheck source=/Users/dthornton/.zshrc
 
-# Get secret syntax
-
+# Input Variables
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 VAULT_NAME='YOUR-VAULT-NAME'
+USE_SERVICE_PRINCIPAL=false
 
-while read -r line; do
+# Service Principal Variables if `USE_SERVICE_PRINCIPAL` is true
+APP_ID=''
+APP_SECRET=''
+TENANT=''
+
+function login_w_sp() {
+    local app_id="$1" app_secret="$2" tenant="$3"
+    az login \
+        --service-principal \
+        --username "$app_id" \
+        --password "$app_secret" \
+        --tenant "$tenant"
+}
+
+if "$USE_SERVICE_PRINCIPAL"; then
+    echo "Logging in w/ service principal..."
+    login_w_sp "$APP_ID" "$APP_SECRET" "$TENANT"
+fi
+
+while read -r line || [ -n "$line" ]; do
     [[ "$DEBUG" ]] && echo "Retrieving secret for $line"
     [[ "$DEBUG" ]] && echo "-----------------------------------"
     GET_SECRET=$(az keyvault secret show \
