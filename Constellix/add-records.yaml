@@ -1,0 +1,25 @@
+records:
+  - domain: <DOMAIN_NAME>
+    enabled: true
+    name: <RECORD_NAME>
+    notes: New development app.
+    mode: standard
+    region: default
+    title: 1800
+    # Types = Can be found here:
+    # https://api.dns.constellix.com/v4/docs#tag/Domain-Records/paths/~1domains~1%7Bdomain_id%7D~1records/post
+    type: <RECORD_TYPE> #CNAME
+    value:
+      - enabled: true
+        value: <HOST_VALUE>
+  # - enabled: true
+  #   name: <RECORD_NAME>
+  #   notes: New development app.
+  #   mode: standard
+  #   region: default
+  #   title: 1800
+  #   type: <RECORD_TYPE>
+  #   value:
+  #     - enabled: true
+  #       value: <HOST_VALUE>
+  #   domain: <DOMAIN_NAME>
